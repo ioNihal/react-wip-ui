@@ -1,0 +1,225 @@
+:root {
+  --rwip-color-bg: #FDFBF7;
+  --rwip-color-text: #4A4641;
+  --rwip-color-primary: #D1BFAe;
+  --rwip-color-ribbon-bg: #E8DDCE;
+  --rwip-color-ribbon-text: #6A5D4D;
+  --rwip-radius: 8px;
+  --rwip-shadow: 0 4px 12px rgba(80, 75, 70, 0.08);
+  --rwip-blur: blur(4px);
+  --rwip-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-rwip-theme="dark"] {
+  --rwip-color-bg: #1A1918;
+  --rwip-color-text: #E8E6E1;
+  --rwip-color-primary: #857B71;
+  --rwip-color-ribbon-bg: #2C2A28;
+  --rwip-color-ribbon-text: #C4B9AD;
+  --rwip-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.rwip-base {
+  font-family: var(--rwip-font-family);
+  box-sizing: border-box;
+}
+
+/* Ribbon */
+.rwip-ribbon-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.rwip-ribbon {
+  position: absolute;
+  background-color: var(--rwip-color-ribbon-bg);
+  color: var(--rwip-color-ribbon-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 40px;
+  box-shadow: var(--rwip-shadow);
+  pointer-events: auto;
+}
+
+.rwip-ribbon.top-left {
+  top: 16px;
+  left: -28px;
+  transform: rotate(-45deg);
+}
+
+.rwip-ribbon.top-right {
+  top: 16px;
+  right: -28px;
+  transform: rotate(45deg);
+}
+
+.rwip-ribbon.outline {
+  background-color: transparent;
+  border: 1px solid var(--rwip-color-ribbon-bg);
+  backdrop-filter: var(--rwip-blur);
+}
+
+/* Badge */
+.rwip-badge-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.rwip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--rwip-color-ribbon-bg);
+  color: var(--rwip-color-ribbon-text);
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Overlay & Block */
+.rwip-overlay-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.rwip-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(253, 251, 247, 0.4);
+  backdrop-filter: var(--rwip-blur);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  transition: opacity 0.3s ease;
+}
+
+[data-rwip-theme="dark"] .rwip-overlay {
+  background-color: rgba(26, 25, 24, 0.4);
+}
+
+.rwip-overlay-message {
+  background-color: var(--rwip-color-bg);
+  color: var(--rwip-color-text);
+  padding: 8px 16px;
+  border-radius: var(--rwip-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: var(--rwip-shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rwip-block {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Modal */
+.rwip-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: var(--rwip-blur);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rwip-fade-in 0.2s ease-out;
+}
+
+.rwip-modal {
+  background-color: var(--rwip-color-bg);
+  color: var(--rwip-color-text);
+  border-radius: var(--rwip-radius);
+  box-shadow: var(--rwip-shadow);
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  animation: rwip-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.rwip-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--rwip-color-text);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+.rwip-modal-close:hover {
+  opacity: 1;
+}
+
+.rwip-modal-title {
+  margin: 0 0 8px 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.rwip-modal-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* Banner */
+.rwip-banner {
+  background-color: var(--rwip-color-ribbon-bg);
+  color: var(--rwip-color-ribbon-text);
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+.rwip-banner.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.rwip-banner-close {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.rwip-banner-close:hover {
+  opacity: 1;
+}
+
+@keyframes rwip-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rwip-slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
