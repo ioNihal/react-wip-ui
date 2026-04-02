@@ -23,7 +23,8 @@
   ],
   "scripts": {
     "build": "tsup && tsc --emitDeclarationOnly && node scripts/prepare-dist.mjs",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -43,8 +44,20 @@
     "wip",
     "work in progress",
     "feature-flag",
-    "ui"
+    "ui",
+    "nextjs",
+    "ssr",
+    "overlay",
+    "badge"
   ],
-  "author": "",
+  "author": "Nihal K",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioNihal/react-wip-ui.git"
+  },
+  "homepage": "https://react-wip-ui.vercel.app",
+  "bugs": {
+    "url": "https://github.com/ioNihal/react-wip-ui/issues"
+  },
   "license": "MIT"
 }
