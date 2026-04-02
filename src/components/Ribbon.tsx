@@ -1,11 +1,11 @@
 import React, { HTMLAttributes } from 'react';
-import { useWIP } from '../hooks/useWIP';
 
 export interface RibbonProps extends HTMLAttributes<HTMLDivElement> {
   position?: 'top-left' | 'top-right';
   text?: string;
   variant?: 'solid' | 'outline';
   className?: string;
+  disabled?: boolean;
 }
 
 export const Ribbon: React.FC<RibbonProps> = ({ 
@@ -13,10 +13,10 @@ export const Ribbon: React.FC<RibbonProps> = ({
   text = 'WIP', 
   variant = 'solid',
   className = '',
+  disabled = false,
   ...props 
 }) => {
-  const { globalDisabled } = useWIP();
-  if (globalDisabled) return null;
+  if (disabled) return null;
 
   return (
     <div className="rwip-ribbon-container">

@@ -5,8 +5,8 @@ Production-ready UI components for marking features as "Work In Progress" (WIP).
 ## Features
 
 - Beautiful default theme with a warm minimal visual style.
-- Composable API with `Ribbon`, `Badge`, `Overlay`, `Block`, `Modal`, and `Banner`.
-- Next.js compatible when used inside your app's client components.
+- Server-friendly visual components for `Ribbon`, `Badge`, `Overlay`, and `Block`.
+- Separate client entry for `WIP`, `Modal`, `Banner`, `WIPProvider`, and `useWIP`.
 - Lightweight with a single bundled stylesheet.
 - Accessible basics including Escape handling, dialog semantics, and ARIA labels.
 
@@ -26,54 +26,98 @@ Import the stylesheet once near the root of your app:
 import 'react-wip-ui/styles.css';
 ```
 
-If you use this package in a Next.js App Router project, import it from a client component or mark the consuming file with `"use client";`. This avoids forcing a larger client boundary than your app actually needs.
+Server-friendly visual components can be imported from the root package:
+
+```tsx
+import { Badge, Ribbon, Overlay, Block } from 'react-wip-ui';
+```
+
+Interactive and stateful exports live under the client entry:
+
+```tsx
+"use client";
+
+import { WIP, WIPProvider, Modal, Banner, useWIP } from 'react-wip-ui/client';
+```
 
 ## Global Configuration
 
-Wrap your app with `<WIP.Provider>` if you want to change the default variant, theme, or disable all WIP UI globally.
+Wrap your app with `<WIPProvider>` if you want to change the default variant, theme, or disable all WIP UI globally.
 
 ```tsx
-import { WIP } from 'react-wip-ui';
+import { WIP, WIPProvider } from 'react-wip-ui/client';
 
 function App({ children }) {
   return (
-    <WIP.Provider theme="light" defaultVariant="overlay" globalDisabled={false}>
+    <WIPProvider theme="light" defaultVariant="overlay" globalDisabled={false}>
       {children}
-    </WIP.Provider>
+    </WIPProvider>
   );
 }
 ```
 
-## Components
+## Root Components
 
-### Feature Flag Wrapper
+### Ribbon
 
 ```tsx
-import { WIP } from 'react-wip-ui';
+import { Ribbon } from 'react-wip-ui';
+
+<Ribbon position="top-right" text="BETA" variant="outline" />
+```
+
+### Overlay
+
+```tsx
+import { Overlay } from 'react-wip-ui';
+
+<Overlay message="Coming Soon">
+  <BillingSection />
+</Overlay>
+```
+
+### Badge
+
+```tsx
+import { Badge } from 'react-wip-ui';
+
+<Badge>
+  <button disabled>Pro Feature</button>
+</Badge>
+```
+
+### Block
+
+```tsx
+import { Block } from 'react-wip-ui';
+
+<Block>
+  <SubscriptionForm />
+</Block>
+```
+
+## Client Components
+
+### WIP Wrapper
+
+```tsx
+"use client";
+
+import { WIP } from 'react-wip-ui/client';
 
 <WIP when={isFeaturePending}>
   <NewDashboard />
 </WIP>
 ```
 
-### Ribbon
-
-```tsx
-<WIP.Ribbon position="top-right" text="BETA" variant="outline" />
-```
-
-### Overlay
-
-```tsx
-<WIP.Overlay message="Coming Soon">
-  <BillingSection />
-</WIP.Overlay>
-```
-
 ### Modal
 
 ```tsx
-<WIP.Modal
+"use client";
+
+import { Modal } from 'react-wip-ui/client';
+
+<Modal
   isOpen={showModal}
   onClose={() => setShowModal(false)}
   title="Feature Under Construction"
@@ -81,26 +125,14 @@ import { WIP } from 'react-wip-ui';
 />
 ```
 
-### Badge
-
-```tsx
-<WIP.Badge>
-  <button disabled>Pro Feature</button>
-</WIP.Badge>
-```
-
-### Block
-
-```tsx
-<WIP.Block>
-  <SubscriptionForm />
-</WIP.Block>
-```
-
 ### Banner
 
 ```tsx
-<WIP.Banner message="Our store is currently under maintenance." dismissible />
+"use client";
+
+import { Banner } from 'react-wip-ui/client';
+
+<Banner message="Our store is currently under maintenance." dismissible />
 ```
 
 ## Programmatic Control
@@ -110,7 +142,7 @@ The `useWIP()` hook reads the current config. Without a provider, it falls back 
 ```tsx
 "use client";
 
-import { useWIP } from 'react-wip-ui';
+import { useWIP } from 'react-wip-ui/client';
 
 function CheckStatus() {
   const { globalDisabled, theme } = useWIP();

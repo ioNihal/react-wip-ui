@@ -11,13 +11,18 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.js"
+    },
     "./styles.css": "./dist/index.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup && tsc --emitDeclarationOnly && node -e \"require('fs').copyFileSync('src/styles/index.css', 'dist/index.css')\"",
+    "build": "tsup && tsc --emitDeclarationOnly && node scripts/prepare-dist.mjs",
     "dev": "tsup --watch"
   },
   "peerDependencies": {

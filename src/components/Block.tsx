@@ -1,18 +1,17 @@
 import React, { HTMLAttributes } from 'react';
-import { useWIP } from '../hooks/useWIP';
 
 export interface BlockProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
+  disabled?: boolean;
 }
 
 export const Block: React.FC<BlockProps> = ({ 
   children, 
   className = '',
+  disabled = false,
   ...props 
 }) => {
-  const { globalDisabled } = useWIP();
-
-  if (globalDisabled) {
+  if (disabled) {
     return <>{children}</>;
   }
 

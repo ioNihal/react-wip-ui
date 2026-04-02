@@ -1,21 +1,20 @@
 import React, { HTMLAttributes } from 'react';
 import { Construction } from 'lucide-react';
-import { useWIP } from '../hooks/useWIP';
 
 export interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   message?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export const Overlay: React.FC<OverlayProps> = ({ 
   children, 
   message = 'Under Construction', 
   className = '',
+  disabled = false,
   ...props 
 }) => {
-  const { globalDisabled } = useWIP();
-
-  if (globalDisabled) {
+  if (disabled) {
     return <>{children}</>;
   }
 

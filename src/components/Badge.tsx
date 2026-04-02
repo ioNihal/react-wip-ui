@@ -1,18 +1,18 @@
 import React, { HTMLAttributes } from 'react';
-import { useWIP } from '../hooks/useWIP';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   text?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export const Badge: React.FC<BadgeProps> = ({ 
   text = 'WIP', 
   className = '',
+  disabled = false,
   ...props 
 }) => {
-  const { globalDisabled } = useWIP();
-  if (globalDisabled) return null;
+  if (disabled) return null;
 
   return (
     <span className="rwip-badge-wrapper" title="Work in Progress">
