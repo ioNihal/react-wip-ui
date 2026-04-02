@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, ReactNode } from 'react';
 
 export type WIPTheme = 'light' | 'dark' | 'system';
 export type WIPVariant = 'overlay' | 'badge' | 'block' | 'hidden';

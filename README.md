@@ -1,39 +1,39 @@
 # react-wip-ui
 
-Production-ready UI components for marking features as "Work In Progress" (WIP). Designed for modern React ecosystems and fully compatible with Next.js App Router (React Server Components). Featuring a stunning **Warm Minimal** design aesthetic.
+Production-ready UI components for marking features as "Work In Progress" (WIP). Designed for modern React ecosystems and compatible with Next.js App Router.
 
 ## Features
 
-- 🎨 **Beautiful Default Theme:** Clean, 'Warm Minimal' design using soft off-whites, balanced styling, and smooth animations.
-- 🧱 **Composable API:** Includes `Ribbon`, `Badge`, `Overlay`, `Block`, `Modal`, and `Banner`.
-- 🚀 **Next.js Compatible:** `"use client"` where necessary, SSR-safe execution.
-- 🪶 **Lightweight:** Minimal CSS payload via a single bundled stylesheet.
-- ♿ **Accessible:** Focus trapping in modals, keyboard events, and ARIA labels.
+- Beautiful default theme with a warm minimal visual style.
+- Composable API with `Ribbon`, `Badge`, `Overlay`, `Block`, `Modal`, and `Banner`.
+- Next.js compatible with a client-ready entry and SSR-safe behavior.
+- Lightweight with a single bundled stylesheet.
+- Accessible basics including Escape handling, dialog semantics, and ARIA labels.
 
 ## Installation
 
 ```bash
-npm install react-wip-ui lucide-react
+npm install react-wip-ui
 ```
+
+This package expects `react` and `react-dom` as peer dependencies.
 
 ## Setup
 
-A single CSS file must be imported at the root of your application (e.g., `app/layout.tsx` or `src/index.tsx`):
+Import the stylesheet once near the root of your app:
 
 ```tsx
 import 'react-wip-ui/styles.css';
 ```
 
-## Global Configuration (Optional)
+## Global Configuration
 
-Use the `<WIP.Provider>` to specify global configurations like switching to dark mode, disabling the feature-flags in production, or selecting a default wrapper mode.
+Wrap your app with `<WIP.Provider>` if you want to change the default variant, theme, or disable all WIP UI globally.
 
 ```tsx
 import { WIP } from 'react-wip-ui';
 
 function App({ children }) {
-  // If `globalDisabled` is true (e.g. process.env.NODE_ENV === 'production')
-  // None of the WIP UI will render, completely unblocking the app.
   return (
     <WIP.Provider theme="light" defaultVariant="overlay" globalDisabled={false}>
       {children}
@@ -44,9 +44,7 @@ function App({ children }) {
 
 ## Components
 
-### 1. Feature Flag Wrapper
-
-The `WIP` component acts as a feature flag. If `when` is true, your content is rendered with the selected `defaultVariant` (Overlay, Block, Badge, or Hidden).
+### Feature Flag Wrapper
 
 ```tsx
 import { WIP } from 'react-wip-ui';
@@ -56,17 +54,13 @@ import { WIP } from 'react-wip-ui';
 </WIP>
 ```
 
-### 2. Ribbon
-
-Displays a clean corner ribbon.
+### Ribbon
 
 ```tsx
 <WIP.Ribbon position="top-right" text="BETA" variant="outline" />
 ```
 
-### 3. Overlay
-
-Places a blurred, semi-transparent overlay over the targeted section gracefully indicating it's under construction. Make sure it's inside a relative container.
+### Overlay
 
 ```tsx
 <WIP.Overlay message="Coming Soon">
@@ -74,22 +68,18 @@ Places a blurred, semi-transparent overlay over the targeted section gracefully 
 </WIP.Overlay>
 ```
 
-### 4. Modal
-
-An accessible dialog with focus-management capabilities.
+### Modal
 
 ```tsx
-<WIP.Modal 
-  isOpen={showModal} 
+<WIP.Modal
+  isOpen={showModal}
   onClose={() => setShowModal(false)}
   title="Feature Under Construction"
   description="This module is not ready yet."
 />
 ```
 
-### 5. Badge
-
-An inline, soft-styled tag component. Let users know a small element is unfinished.
+### Badge
 
 ```tsx
 <WIP.Badge>
@@ -97,9 +87,7 @@ An inline, soft-styled tag component. Let users know a small element is unfinish
 </WIP.Badge>
 ```
 
-### 6. Block
-
-Visually block interaction with `pointer-events-none`.
+### Block
 
 ```tsx
 <WIP.Block>
@@ -107,9 +95,7 @@ Visually block interaction with `pointer-events-none`.
 </WIP.Block>
 ```
 
-### 7. Banner
-
-A sticky, dismissible top banner.
+### Banner
 
 ```tsx
 <WIP.Banner message="Our store is currently under maintenance." dismissible />
@@ -117,10 +103,11 @@ A sticky, dismissible top banner.
 
 ## Programmatic Control
 
-The library provides a React hook to access configuration directly inside client components.
+The `useWIP()` hook reads the current config. Without a provider, it falls back to the built-in defaults.
 
 ```tsx
 "use client";
+
 import { useWIP } from 'react-wip-ui';
 
 function CheckStatus() {

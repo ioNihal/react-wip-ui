@@ -9,9 +9,4 @@ export default defineConfig({
   treeshake: true,
   minify: false,
   external: ['react', 'react-dom'],
-  esbuildOptions(options) {
-    options.banner = {
-      js: '"use client";', // This ensures Next.js understands client components by default in the entry point
-    };
-  },
 });

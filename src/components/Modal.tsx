@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { HTMLAttributes, useEffect, useId, useState } from 'react';
 import { X, AlertCircle } from 'lucide-react';
 import { useWIP } from '../hooks/useWIP';
 import { isClient } from '../utils/ssr';
@@ -24,6 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const { globalDisabled } = useWIP();
   const [mounted, setMounted] = useState(false);
+  const titleId = useId();
 
   useEffect(() => {
     setMounted(true);
@@ -48,7 +49,7 @@ export const Modal: React.FC<ModalProps> = ({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="rwip-modal-title"
+        aria-labelledby={titleId}
         {...props}
       >
         <button 
@@ -61,7 +62,7 @@ export const Modal: React.FC<ModalProps> = ({
         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
           <AlertCircle size={24} style={{ color: 'var(--rwip-color-primary)', flexShrink: 0, marginTop: '2px' }} />
           <div>
-            <h2 id="rwip-modal-title" className="rwip-modal-title">{title}</h2>
+            <h2 id={titleId} className="rwip-modal-title">{title}</h2>
             <p className="rwip-modal-desc">{description}</p>
           </div>
         </div>

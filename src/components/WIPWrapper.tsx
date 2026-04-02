@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { useWIP } from '../hooks/useWIP';
 import { Overlay } from './Overlay';
 import { Block } from './Block';
@@ -22,13 +22,7 @@ export const WIPWrapper: React.FC<WIPWrapperProps> = ({ children, when = true })
     case 'block':
       return <Block>{children}</Block>;
     case 'badge':
-      // Badge is typically inline, so we wrap children and add badge
-      return (
-        <span className="rwip-badge-wrapper">
-          {children}
-          <Badge />
-        </span>
-      );
+      return <Badge>{children}</Badge>;
     case 'hidden':
       return null;
     default:
