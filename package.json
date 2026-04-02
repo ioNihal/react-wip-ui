@@ -17,7 +17,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup && tsc --emitDeclarationOnly && node scripts/prepare-dist.mjs",
+    "build": "tsup && tsc --emitDeclarationOnly && node -e \"require('fs').copyFileSync('src/styles/index.css', 'dist/index.css')\"",
     "dev": "tsup --watch"
   },
   "peerDependencies": {

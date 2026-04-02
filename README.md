@@ -6,7 +6,7 @@ Production-ready UI components for marking features as "Work In Progress" (WIP).
 
 - Beautiful default theme with a warm minimal visual style.
 - Composable API with `Ribbon`, `Badge`, `Overlay`, `Block`, `Modal`, and `Banner`.
-- Next.js compatible with a client-ready entry and SSR-safe behavior.
+- Next.js compatible when used inside your app's client components.
 - Lightweight with a single bundled stylesheet.
 - Accessible basics including Escape handling, dialog semantics, and ARIA labels.
 
@@ -25,6 +25,8 @@ Import the stylesheet once near the root of your app:
 ```tsx
 import 'react-wip-ui/styles.css';
 ```
+
+If you use this package in a Next.js App Router project, import it from a client component or mark the consuming file with `"use client";`. This avoids forcing a larger client boundary than your app actually needs.
 
 ## Global Configuration
 
