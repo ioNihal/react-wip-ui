@@ -1,7 +1,25 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
-.npm-cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# npm
 *.tgz
+.npm-cache/
+
+# Logs
 *.log
+npm-debug.log*
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp

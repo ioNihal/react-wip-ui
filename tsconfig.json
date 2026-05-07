@@ -2,18 +2,26 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "Node16",
+    "moduleResolution": "node16",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
+
+    /* Emit — declarations only (tsup handles JS output) */
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "emitDeclarationOnly": true,
     "outDir": "dist",
     "rootDir": "src",
+
+    /* Strictness */
     "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* Interop */
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node16",
-    "jsx": "react-jsx"
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

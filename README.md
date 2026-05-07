@@ -1,14 +1,11 @@
 # react-wip-ui
 
-Production-ready UI components for marking features as "Work In Progress" (WIP). Designed for modern React ecosystems and compatible with Next.js App Router.
+Lightweight, server-friendly React components for marking features as **Work In Progress**.
 
-## Features
-
-- Beautiful default theme with a warm minimal visual style.
-- Server-friendly visual components for `Ribbon`, `Badge`, `Overlay`, and `Block`.
-- Separate client entry for `WIP`, `Modal`, `Banner`, `WIPProvider`, and `useWIP`.
-- Lightweight with a single bundled stylesheet.
-- Accessible basics including Escape handling, dialog semantics, and ARIA labels.
+- ✅ **Zero dependencies** — no CSS file, no external packages
+- ✅ **Server-component safe** — works in Next.js App Router RSC out of the box
+- ✅ **Inline styles** — no stylesheet to import, nothing to configure
+- ✅ **Tiny bundle** — ~3.5 kB minified ESM
 
 ## Installation
 
@@ -16,139 +13,128 @@ Production-ready UI components for marking features as "Work In Progress" (WIP).
 npm install react-wip-ui
 ```
 
-This package expects `react` and `react-dom` as peer dependencies.
+Peer dependencies: `react` ^18 or ^19.
 
-## Setup
+## Usage
 
-Import the stylesheet once near the root of your app:
-
-```tsx
-import 'react-wip-ui/styles.css';
-```
-
-Server-friendly visual components can be imported from the root package:
+Import and use — no setup, no CSS import, no provider needed.
 
 ```tsx
 import { Badge, Ribbon, Overlay, Block } from 'react-wip-ui';
 ```
 
-Interactive and stateful exports live under the client entry:
+---
+
+## Components
+
+### `<Badge>`
+
+Attaches a small WIP label next to any content.
 
 ```tsx
-"use client";
-
-import { WIP, WIPProvider, Modal, Banner, useWIP } from 'react-wip-ui/client';
-```
-
-## Global Configuration
-
-Wrap your app with `<WIPProvider>` if you want to change the default variant, theme, or disable all WIP UI globally.
-
-```tsx
-import { WIP, WIPProvider } from 'react-wip-ui/client';
-
-function App({ children }) {
-  return (
-    <WIPProvider theme="light" defaultVariant="overlay" globalDisabled={false}>
-      {children}
-    </WIPProvider>
-  );
-}
-```
-
-## Root Components
-
-### Ribbon
-
-```tsx
-import { Ribbon } from 'react-wip-ui';
-
-<Ribbon position="top-right" text="BETA" variant="outline" />
-```
-
-### Overlay
-
-```tsx
-import { Overlay } from 'react-wip-ui';
-
-<Overlay message="Coming Soon">
-  <BillingSection />
-</Overlay>
-```
-
-### Badge
-
-```tsx
-import { Badge } from 'react-wip-ui';
-
 <Badge>
-  <button disabled>Pro Feature</button>
+  <button>Pro Feature</button>
+</Badge>
+
+// With options
+<Badge text="BETA" theme="dark" placement="before">
+  <NavItem />
+</Badge>
+
+// Custom colours
+<Badge colors={{ bg: '#1e1b4b', text: '#a5b4fc' }}>
+  <NavItem />
 </Badge>
 ```
 
-### Block
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `text` | `string` | `'WIP'` | Label text |
+| `placement` | `'before' \| 'after'` | `'after'` | Badge before or after children |
+| `theme` | `'light' \| 'dark'` | `'light'` | Colour scheme |
+| `colors` | `{ bg?, text? }` | — | Custom colour overrides |
+| `disabled` | `boolean` | `false` | Renders children without badge |
+
+---
+
+### `<Ribbon>`
+
+A diagonal corner ribbon for containers. The parent must have `position: relative`.
 
 ```tsx
-import { Block } from 'react-wip-ui';
+<div style={{ position: 'relative' }}>
+  <Ribbon />
+  <Card />
+</div>
 
+// Options
+<Ribbon position="top-left" text="ALPHA" variant="outline" theme="dark" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `position` | `'top-left' \| 'top-right'` | `'top-right'` | Corner placement |
+| `text` | `string` | `'WIP'` | Label text |
+| `variant` | `'solid' \| 'outline'` | `'solid'` | Fill style |
+| `theme` | `'light' \| 'dark'` | `'light'` | Colour scheme |
+| `colors` | `{ bg?, text? }` | — | Custom colour overrides |
+| `disabled` | `boolean` | `false` | Renders nothing |
+
+---
+
+### `<Overlay>`
+
+Covers children with a blurred scrim and a message pill.
+
+```tsx
+<Overlay>
+  <BillingSection />
+</Overlay>
+
+// Options
+<Overlay message="Coming Soon" theme="dark" />
+
+// Custom colours for the message pill
+<Overlay colors={{ bg: '#0f172a', text: '#94a3b8' }}>
+  <AnalyticsDashboard />
+</Overlay>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `message` | `string` | `'Under Construction'` | Text in the message pill |
+| `theme` | `'light' \| 'dark'` | `'light'` | Colour scheme for scrim + pill |
+| `colors` | `{ bg?, text? }` | — | Override pill bg and text colour |
+| `disabled` | `boolean` | `false` | Renders children as-is |
+
+---
+
+### `<Block>`
+
+Disables pointer events and text selection on children — use to make a section non-interactive.
+
+```tsx
 <Block>
   <SubscriptionForm />
 </Block>
 ```
 
-## Client Components
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `disabled` | `boolean` | `false` | Renders children as-is |
 
-### WIP Wrapper
+---
 
-```tsx
-"use client";
+## Types
 
-import { WIP } from 'react-wip-ui/client';
+```ts
+import type { WIPTheme, WIPColors } from 'react-wip-ui';
 
-<WIP when={isFeaturePending}>
-  <NewDashboard />
-</WIP>
+type WIPTheme  = 'light' | 'dark';
+type WIPColors = { bg?: string; text?: string };
 ```
 
-### Modal
-
-```tsx
-"use client";
-
-import { Modal } from 'react-wip-ui/client';
-
-<Modal
-  isOpen={showModal}
-  onClose={() => setShowModal(false)}
-  title="Feature Under Construction"
-  description="This module is not ready yet."
-/>
-```
-
-### Banner
-
-```tsx
-"use client";
-
-import { Banner } from 'react-wip-ui/client';
-
-<Banner message="Our store is currently under maintenance." dismissible />
-```
-
-## Programmatic Control
-
-The `useWIP()` hook reads the current config. Without a provider, it falls back to the built-in defaults.
-
-```tsx
-"use client";
-
-import { useWIP } from 'react-wip-ui/client';
-
-function CheckStatus() {
-  const { globalDisabled, theme } = useWIP();
-  return <div>Active Theme: {theme}</div>;
-}
-```
+---
 
 ## License
 

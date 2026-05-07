@@ -1,22 +1,28 @@
 import React, { HTMLAttributes } from 'react';
 
 export interface BlockProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+  /** When true, children are rendered as-is without blocking */
   disabled?: boolean;
 }
 
-export const Block: React.FC<BlockProps> = ({ 
-  children, 
-  className = '',
+export const Block: React.FC<BlockProps> = ({
+  children,
   disabled = false,
-  ...props 
+  style,
+  ...props
 }) => {
-  if (disabled) {
-    return <>{children}</>;
-  }
+  if (disabled) return <>{children}</>;
 
   return (
-    <div className={`rwip-block ${className}`} aria-disabled="true" {...props}>
+    <div
+      style={{
+        pointerEvents: 'none',
+        userSelect: 'none',
+        ...style,
+      }}
+      aria-disabled="true"
+      {...props}
+    >
       {children}
     </div>
   );

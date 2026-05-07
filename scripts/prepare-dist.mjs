@@ -1,10 +1,9 @@
-import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 
-copyFileSync('src/styles/index.css', 'dist/index.css');
+// Verify the dist was produced
+const indexJs = readFileSync('dist/index.js', 'utf8');
+const indexMjs = readFileSync('dist/index.mjs', 'utf8');
 
-for (const file of ['dist/client.js', 'dist/client.mjs']) {
-  const contents = readFileSync(file, 'utf8');
-  if (!contents.startsWith('"use client";') && !contents.startsWith("'use client';")) {
-    writeFileSync(file, `"use client";\n${contents}`);
-  }
-}
+console.log(`dist/index.js  — ${(Buffer.byteLength(indexJs, 'utf8') / 1024).toFixed(1)} kB`);
+console.log(`dist/index.mjs — ${(Buffer.byteLength(indexMjs, 'utf8') / 1024).toFixed(1)} kB`);
+console.log('Build artifacts ready.');

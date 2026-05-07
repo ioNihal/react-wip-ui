@@ -1,59 +1,53 @@
 {
   "name": "react-wip-ui",
-  "version": "1.0.0",
-  "description": "Production-ready UI components for marking features as Work In Progress",
+  "version": "2.0.0",
+  "description": "Lightweight, server-friendly UI components for marking features as Work In Progress",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "types":   "./dist/index.d.ts",
+      "import":  "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./client": {
-      "types": "./dist/client.d.ts",
-      "import": "./dist/client.mjs",
-      "require": "./dist/client.js"
-    },
-    "./styles.css": "./dist/index.css"
+    }
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsup && tsc --emitDeclarationOnly && node scripts/prepare-dist.mjs",
-    "dev": "tsup --watch",
+    "build": "tsup && tsc && node scripts/prepare-dist.mjs",
+    "dev":   "tsup --watch",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
+    "react":     "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
-  "dependencies": {
-    "lucide-react": "^1.7.0"
-  },
   "devDependencies": {
-    "@types/react": "^19.2.0",
+    "@types/react":     "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "tsup": "^8.0.0",
-    "typescript": "^6.0.0"
+    "tsup":             "^8.0.0",
+    "typescript":       "^6.0.0"
   },
   "keywords": [
     "react",
     "wip",
-    "work in progress",
-    "feature-flag",
+    "work-in-progress",
     "ui",
     "nextjs",
-    "ssr",
-    "overlay",
-    "badge"
+    "rsc",
+    "server-components",
+    "badge",
+    "ribbon",
+    "overlay"
   ],
   "author": "Nihal K",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ioNihal/react-wip-ui.git"
+    "url":  "git+https://github.com/ioNihal/react-wip-ui.git"
   },
   "homepage": "https://react-wip-ui.vercel.app",
   "bugs": {
